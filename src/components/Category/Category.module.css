@@ -1,0 +1,7 @@
+.Category {
+  cursor: pointer;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
