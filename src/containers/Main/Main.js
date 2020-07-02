@@ -3,12 +3,11 @@ import React, { Component } from "react";
 import Quote from "../Quote/Quote";
 import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
-
+import CategoryContext from "../../context/CategoryContext";
 import classes from "./Main.module.css";
 
 class Main extends Component {
   state = {
-    category: null,
     quote: {
       quoteText: "",
       author: "",
@@ -48,15 +47,20 @@ class Main extends Component {
     }
 
     return (
-      <div className={classes.Main}>
-        {content}
-        <Button
-          clicked={() => this.onClickHandler("inspirational")}
-          btnType="Success"
-        >
-          Random Quote
-        </Button>
-      </div>
+      <CategoryContext.Consumer>
+        {(context) => (
+          <div className={classes.Main}>
+            <h2>{context.chosenCategory}</h2>
+            {content}
+            <Button
+              clicked={() => this.onClickHandler(context.chosenCategory)}
+              btnType="Success"
+            >
+              Random Quote
+            </Button>
+          </div>
+        )}
+      </CategoryContext.Consumer>
     );
   }
 }

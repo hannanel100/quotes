@@ -5,34 +5,45 @@ import DrawerToggle from "../../components/Navigation/SideDrawer/DrawerToggle/Dr
 import classes from "./Layout.module.css";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import Categories from "../Categories/Categories";
+import CategoryContext from "../../context/CategoryContext";
+
 class Layout extends Component {
   state = {
     showSideDrawer: false,
     chosenCategory: "",
   };
   sideDrawerClosedHandler = () => {
-    this.setState({ showSideDrawer: false });
+    this.setState({ ...this.state, showSideDrawer: false });
   };
   sideDrawerToggleHandler = () => {
     this.setState((prevState) => {
       return { showSideDrawer: !prevState.showSideDrawer };
     });
   };
-  chosenCategoryHandler = () => {};
+  chosenCategoryHandler = (newCategory) => {
+    this.setState({ ...this.state, chosenCategory: newCategory });
+  };
 
   render() {
     return (
       <div className={classes.Content}>
-        <DrawerToggle clicked={this.sideDrawerToggleHandler} />
-        <SideDrawer open={this.state.showSideDrawer} />
-        <Categories />
-        <Main />
-        {/* <SideDrawer
+        <CategoryContext.Provider
+          value={{
+            chosenCategory: this.state.chosenCategory,
+            changeCategory: this.chosenCategoryHandler,
+          }}
+        >
+          <DrawerToggle clicked={this.sideDrawerToggleHandler} />
+          <SideDrawer open={this.state.showSideDrawer} />
+          <Categories />
+          <Main />
+          {/* <SideDrawer
           isAuth={this.props.isAuthenticated}
           open={this.state.showSideDrawer}
           closed={this.sideDrawerClosedHandler}
         /> */}
-        <main className={classes.Content}>{this.props.children}</main>
+          <main className={classes.Content}>{this.props.children}</main>
+        </CategoryContext.Provider>
       </div>
     );
   }

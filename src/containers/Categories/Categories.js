@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 
 import Category from "../../components/Category/Category";
-
+import CategoryContext from "../../context/CategoryContext";
 import classes from "./Categories.module.css";
 export default class Categories extends Component {
   state = {
     categories: [],
-    chosenCategory: "",
   };
 
   async componentDidMount() {
@@ -25,22 +24,22 @@ export default class Categories extends Component {
     return categoriesArray;
   };
 
-  onCategoryClickHandler = (categoryName) => {
-    this.setState({ ...this.state, chosenCategory: categoryName });
-    console.log(categoryName);
-  };
   render() {
     let categoriesList = this.state.categories;
 
     return (
       <div className={classes.Categories}>
-        {categoriesList.map((name) => (
-          <Category
-            key={name}
-            name={name}
-            clicked={() => this.onCategoryClickHandler(name)}
-          />
+         <CategoryContext.Consumer>
+            {(context) => (
+        categoriesList.map((name) => (
+              <Category
+                key={name}
+                name={name}
+                clicked={() => context.changeCategory(name)}
+              />
+            )
         ))}
+        </CategoryContext.Consumer>
       </div>
     );
   }
