@@ -1,6 +1,7 @@
 .Button {
   background-color: transparent;
-  border: none;
+  border: 1px solid black;
+  border-radius: 3px;
   color: white;
   outline: none;
   cursor: pointer;
@@ -8,6 +9,9 @@
   padding: 10px;
   margin: 10px;
   font-weight: bold;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .Button:first-of-type {
@@ -15,6 +19,13 @@
   padding-left: 0;
 }
 
+.Button:active {
+  background-color: #cecece;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(27, 27, 27, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(27, 27, 27, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(27, 27, 27, 0.75);
+  transform: translateY(4px);
+}
 .Button:disabled {
   color: #ccc;
   cursor: not-allowed;

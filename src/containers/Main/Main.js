@@ -50,7 +50,11 @@ class Main extends Component {
       <CategoryContext.Consumer>
         {(context) => (
           <div className={classes.Main}>
-            <h2>{context.chosenCategory}</h2>
+            {context.chosenCategory ? (
+              <h2 className={classes.capitalize}>{context.chosenCategory}</h2>
+            ) : (
+              <h2>Random</h2>
+            )}
             {content}
             <Button
               clicked={() => this.onClickHandler(context.chosenCategory)}
